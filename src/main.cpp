@@ -71,7 +71,7 @@ void cuonbong(){
     }
   }
 
-void sortbong(){ 
+void sortbong(){ //servo6: 300 -> chéo xuống để đưa bóng, 500 -> chéo lên, 200 -> xả bóng, servo5: 375 -> mở ra, 150 -> đóng
   uint16_t r, g, b, c;
   tcs.getRawData(&r, &g, &b, &c);
   const int threshold = 30, clear_threshold = 50, threshold1 = 200, tolerance = 50; // tolerance để cho phép màu trắng vẫn ở ngưỡng ok
@@ -153,7 +153,7 @@ void outtake(){
     pwm.setPWM(4, 0, 375);
     status = 2;
   }
-  else if (ps2x.ButtonPressed(PSB_GREEN) && status == 1){
+  else if (ps2x.ButtonPressed(PSB_BLUE) && status == 1){
     pwm.setPWM(4, 0, 600);
     if (digitalRead(congtac4) == HIGH){
       pwm.setPWM(4, 0, 375);
