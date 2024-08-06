@@ -52,7 +52,7 @@ void init() {
 }
 
 void dichuyen(){ 
-  int moveY = ps2x.Analog(PSS_LY)*limit, moveX = ps2x.Analog(PSS_RX)*limit; //cho vào struct
+  int moveY = ps2x.Analog(PSS_LY)*limit, moveX = ps2x.Analog(PSS_RX)*limit; //cho vào struct, dùng float hay vì int
   if (moveY >= 0){ 
       // Tận dụng pwm không nhận giá trị âm -> lúc nào nhận giá trị âm thì tự chuyển sang chân âm
       pwm.setPWM(DC1DUONG, 0, moveY + moveX); 
