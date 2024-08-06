@@ -68,10 +68,10 @@ void dichuyen(){
       }
   }
   else{
-    pwm.setPWM(DC1DUONG, 0, -(moveY - moveX)); 
-    pwm.setPWM(DC1AM, 0, moveY - moveX);    
-    pwm.setPWM(DC2DUONG, 0, -(moveY + moveX)); 
-    pwm.setPWM(DC2AM, 0, moveY + moveX);    
+    pwm.setPWM(DC1DUONG, 0, moveY - moveX); 
+    pwm.setPWM(DC1AM, 0, -(moveY - moveX));    
+    pwm.setPWM(DC2DUONG, 0, moveY + moveX); 
+    pwm.setPWM(DC2AM, 0, -(moveY + moveX));    
   }
 }
 
