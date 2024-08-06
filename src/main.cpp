@@ -52,7 +52,7 @@ void init() {
 }
 
 void dichuyen(){ 
-  int moveY = ps2x.Analog(PSS_LY)*limit, moveX = ps2x.Analog(PSS_RX)*limit;
+  int moveY = ps2x.Analog(PSS_LY)*limit, moveX = ps2x.Analog(PSS_RX)*limit; //cho vào struct
   if (moveY >= 0){ 
       // Tận dụng pwm không nhận giá trị âm -> lúc nào nhận giá trị âm thì tự chuyển sang chân âm
       pwm.setPWM(DC1DUONG, 0, moveY + moveX); 
@@ -72,7 +72,7 @@ void dichuyen(){
     pwm.setPWM(DC1AM, 0, -(moveY - moveX));    
     pwm.setPWM(DC2DUONG, 0, moveY + moveX); 
     pwm.setPWM(DC2AM, 0, -(moveY + moveX));    
-  }
+  } // thêm phanh 
 }
 
 void cuonbong(){ 
