@@ -163,7 +163,7 @@ void sortbong(){
            cocau.battatcuonbong == 1 && 
            cocau.tieptucsortbong == 0)  
     {
-    //cho bóng vào hộp dưới, còn lại tương tự như trên
+    //cho bóng vào hộp dưới, còn lại tương tự như code sort màu đen phía trên
     pwm.setPWM(servo2, 0, 300);
     pwm.setPWM(servo3, 0, 150);
     pwm.setPWM(servo1, 0, 150);
