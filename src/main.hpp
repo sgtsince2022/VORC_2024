@@ -38,8 +38,8 @@ struct movement {
 //4 CÔNG TẮC HÀNH TRÌNH
 #define congtac1 25
 #define congtac2 32
-#define congtac3 36
-#define congtac4 39
+#define congtac3 39
+#define congtac4 36
 
 //PRESSURE VÀ RUMBLE CỦA PS2 
 #define pressures false
