@@ -188,8 +188,8 @@ void cuonbong(){
     }
   }
   if (cocau.battatcuonbong == 1){
-    pwm.setPWM(DC3DUONG, 0, DC3POWER); 
-    pwm.setPWM(DC3AM, 0, 0);    
+    pwm.setPWM(DC3DUONG, 0, 0); 
+    pwm.setPWM(DC3AM, 0, DC3POWER);    
     }
   else{
     pwm.setPWM(DC3DUONG, 0, 0); 
