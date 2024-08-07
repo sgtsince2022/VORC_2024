@@ -360,7 +360,7 @@ void ErrorChecking() {
     Serial.println(" Ket noi tay cam PS2 thanh cong");
     break;
   case 1:
-    Serial.println(" LOI: Khong tim thay tay cam, hay kiem tra day ket noi vơi tay cam ");
+    Serial.println(" LOI: Khong tim thay tay cam, hay kiem tra day ket noi voi tay cam ");
     break;
   case 2:
     Serial.println(" LOI: khong gui duoc lenh");
