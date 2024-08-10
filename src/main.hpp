@@ -80,7 +80,7 @@ struct movement {
 #define Negative_Spin 150
 
 //Servo2 (180)
-#define hungbong 500
+#define hungbong 420
 #define vaothung 300
 #define xabong 200
 
