@@ -197,9 +197,8 @@ void sortbong(){
 
 //R, G, B phải gần tương đương nhau
 
-  uint16_t r, g, b, c, lux;
+  uint16_t r, g, b, c;
   colorSensor.getRawData(&r, &g, &b, &c);
-  lux = colorSensor.calculateLux(r, g, b);
 
   if (ps2x.ButtonPressed(PSB_PINK) && cocau.battatsortbong == 1){
     cocau.battatsortbong = 0;
@@ -226,9 +225,6 @@ void sortbong(){
   if (r < thresholdblack && 
       g < thresholdblack && 
       b < thresholdblack && 
-      //dùng clear để đảm bảo là màu đen
-      c < clear_threshold &&
-      lux < luxblack && 
       cocau.battatsortbong == 1 && 
       cocau.tieptucsortbong == 1) 
   {
@@ -241,7 +237,6 @@ void sortbong(){
   else if (r > thresholdwhite &&
            g > thresholdwhite && 
            b > thresholdwhite &&
-           lux > luxwhite &&
            //r g b phải gần tương đương nhau
            abs(r - g) < tolerance && 
            abs(r - b) < tolerance && 
