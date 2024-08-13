@@ -13,15 +13,15 @@ struct status {
 };
 
 //GIÁ TRỊ DI CHUYỂN
-#define limitPos 2048 //giới hạn 50% năng lượng
-#define limitNeg -2048
+#define limitPos 2500 //giới hạn xấp xỉ 62% năng lượng
+#define limitNeg -2500
 #define lowestSpeed 0
 #define brake 1200
 
 //THỜI GIAN CHỜ
 #define TimetoBrake 50 //thời gian 0,05s tránh tối đa tình trạng động cơ bị dừng khi có tín hiệu di chuyển
-#define Servo3and4OpenAndClose #define Servo3and4OpenAndClose 270
-// Tốc độ servo 360: 0,16s / 60* -> xấp xỉ 0,27s cho 100*
+#define Servo3and4OpenAndClose 267
+// Tốc độ servo 360: 0,16s / 60* -> xấp xỉ 0,267s cho 100*
 #define OuttakeOpenTime 3000
 
 //GIÁ TRỊ TỐI ĐA DI CHUYỂN
@@ -68,6 +68,8 @@ struct movement {
 #define clear_threshold 50
 #define thresholdwhite 200
 #define tolerance 50 //cho phép chênh lệch giá trị R G B
+#define luxwhite 300
+#define luxblack 50
 
 //DC3 POWER
 #define DC3POWER 4095
@@ -81,12 +83,12 @@ struct movement {
 #define Negative_Spin 150
 
 //Servo1 (180)
-#define mocua 300
+#define mocua 250
 #define dongcua 150 //vị trí bắt đầu
 
 //Servo2 (180)
-#define hungbong 380 //vị trí bắt đầu
-#define thungtren 300
+#define hungbong 310 //vị trí bắt đầu
+#define thungtren 270
 #define thungduoi 150
 
 //CÁC HÀM
