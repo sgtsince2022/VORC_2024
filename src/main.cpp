@@ -349,7 +349,7 @@ void ErrorChecking() {
     }
     switch (err)
     {
-    case 0:
+  case 0:
     Serial.println(" Ket noi tay cam PS2 thanh cong");
     break;
   case 1:
