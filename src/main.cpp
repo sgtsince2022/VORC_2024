@@ -288,33 +288,41 @@ void outtake(){
   //servo3: cửa trên
   //servo4: cửa dưới
 
-  if (ps2x.ButtonPressed(PSB_GREEN) && cocau.outtaketren == 0){
+  //outtaketren/outtakeduoi = 1: đang mở cửa, nút điều khiển tạm thời bị vô hiệu hoá
+  //outtaketren/outtakeduoi = 0: đang đóng cửa
+
+  //PSB GREEN: mở cửa trên
+  //PSB BLUE: mở cửa dưới
+
+   if (ps2x.ButtonPressed(PSB_GREEN) && cocau.outtaketren == 0){
+    cocau.outtaketren = 1;
+    //mở cửa trên
     pwm.setPWM(servo3, 0, Negative_Spin);
     delay(Servo3and4OpenAndClose);
     pwm.setPWM(servo3, 0, neutral);
-    cocau.outtaketren = 1;
-  }
-  else if (ps2x.ButtonPressed(PSB_GREEN) && cocau.outtaketren == 1){
+    //chờ để bóng ra hết
+    delay(OuttakeOpenTime);
+    //đóng cửa trên
     pwm.setPWM(servo3, 0, Positive_Spin);
     delay(Servo3and4OpenAndClose);
     pwm.setPWM(servo3, 0, neutral);
     cocau.outtaketren = 0;
   }
-  }
-  if (ps2x.ButtonPressed(PSB_BLUE) && cocau.outtakeduoi == 0){
+   if (ps2x.ButtonPressed(PSB_BLUE) && cocau.outtakeduoi == 0){
+    cocau.outtakeduoi = 1;
+    //mở cửa dưới
     pwm.setPWM(servo4, 0, Positive_Spin);
     delay(Servo3and4OpenAndClose);
     pwm.setPWM(servo4, 0, neutral);
-    cocau.outtakeduoi = 1;
-  }
-  else if (ps2x.ButtonPressed(PSB_BLUE) && cocau.outtakeduoi == 1){
+    //chờ để bóng ra hết
+    delay(OuttakeOpenTime);
+    //đóng cửa dưới
     pwm.setPWM(servo4, 0, Negative_Spin);
     delay(Servo3and4OpenAndClose);
     pwm.setPWM(servo4, 0, neutral);
     cocau.outtakeduoi = 0;
     }
   }
-
 
 //KIỂM TRA LỖI
 void ErrorChecking() {
