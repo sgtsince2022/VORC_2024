@@ -167,8 +167,8 @@ void dichuyen(){
 
 void cuonbong(){ 
 
-  // battatcuonbong = 1: bật cuốn bóng, mở cửa
-  // battatcuonbong = 0: tắt cuốn bóng, đóng cửa
+  // battatcuonbong = 1: bật cuốn bóng
+  // battatcuonbong = 0: tắt cuốn bóng
 
   if (ps2x.ButtonPressed(PSB_START)){
     if (cocau.battatcuonbong == 1){
@@ -262,7 +262,14 @@ void nanghathung(){
   //Công tắc 1: Nấc dưới cùng
   //Công tắc 2: Đưa bóng đen vào lỗ
   //Công tắc 3: Cao nhất, đưa bóng trắng vào lỗ
-  
+
+  //Khi thùng được nâng, tắt và không cho sort bóng và cuốn bóng 
+  if (digitalRead(congtac2) == HIGH || digitalRead(congtac3) == HIGH || ps2x.ButtonPressed(PSB_PAD_UP)){
+    cocau.battatcuonbong = 0;
+    cocau.battatsortbong = 0;
+  }
+
+  //Nâng/hạ
   if ((ps2x.ButtonPressed(PSB_PAD_UP) && digitalRead(congtac1) == HIGH) || 
       (ps2x.ButtonPressed(PSB_PAD_UP) && digitalRead(congtac2) == HIGH))
   {
