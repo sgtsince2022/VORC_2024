@@ -322,8 +322,8 @@ void outtake(){
   }
   else if (ps2x.ButtonPressed(PSB_GREEN) && cocau.outtakestatus == 2){
     pwm.setPWM(servo4, 0, Negative_Spin);
-    if (digitalRead(congtac4) == HIGH){
-      pwm.setPWM(servo4, 0, neutral);
+    delay(Servo1and4OpenAndClose);
+    pwm.setPWM(servo4, 0, neutral);
       cocau.outtakestatus = 0;
   }
   }
@@ -335,8 +335,8 @@ void outtake(){
   }
   else if (ps2x.ButtonPressed(PSB_BLUE) && cocau.outtakestatus == 1){
     pwm.setPWM(servo4, 0, Positive_Spin);
-    if (digitalRead(congtac4) == HIGH){
-      pwm.setPWM(servo4, 0, neutral);
+    delay(Servo1and4OpenAndClose);
+    pwm.setPWM(servo4, 0, neutral);
       cocau.outtakestatus = 0;
     }
   }
