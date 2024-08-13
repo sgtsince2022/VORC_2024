@@ -5,7 +5,7 @@ PS2X ps2x;
 Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_50MS, TCS34725_GAIN_4X);
 
 //CÁC CƠ CẤU Ở TRẠNG THÁI BÌNH THƯỜNG
-status cocau {0, 0, 0, 0, 0};
+status cocau {0, 0, 0, 0, 0, 0, 0};
 
 //GIÁ TRỊ DI CHUYỂN
             /*fl, fh, b_l, b_h,ll, lh, r_l, r_h, xl, ixh, yl, iyh*/
@@ -28,7 +28,6 @@ void setup() {
   pinMode(congtac1, INPUT);
   pinMode(congtac2, INPUT);
   pinMode(congtac3, INPUT);
-  pinMode(congtac4, INPUT);
   init();
   ErrorChecking();
 }
@@ -50,9 +49,9 @@ void init() {
   Wire.setClock(400000); 
 
   //SET CÁC SERVO VỀ VỊ TRÍ SẴN SÀNG
-  pwm.setPWM(servo1, 0, neutral); //360
+  pwm.setPWM(servo1, 0, dongcua); //360
   pwm.setPWM(servo2, 0, hungbong); //180
-  pwm.setPWM(servo3, 0, thungtren); //180
+  pwm.setPWM(servo3, 0, neutral); //180
   pwm.setPWM(servo4, 0, neutral); //360
 }
 
@@ -170,78 +169,66 @@ void cuonbong(){
   // battatcuonbong = 0: tắt cuốn bóng, đóng cửa
 
   if (ps2x.ButtonPressed(PSB_START)){
-    if (cocau.battatcuonbong == 0){ 
-      //mở cửa
-      cocau.battatcuonbong = 1;
-      pwm.setPWM(servo1, 0, Positive_Spin);
-      delay(Servo1and4OpenAndClose);
-      pwm.setPWM(servo1, 0, neutral);
-      delay(500);
+    if (cocau.battatcuonbong == 1){
+      cocau.battatcuonbong = 0;
     }
     else{
-      //đóng cửa
-      cocau.battatcuonbong = 0;
-      pwm.setPWM(servo1, 0, Negative_Spin);
-      delay(Servo1and4OpenAndClose);
-      pwm.setPWM(servo1, 0, neutral);
-      delay(500);
+      cocau.battatcuonbong = 1;
     }
   }
   if (cocau.battatcuonbong == 1){
     pwm.setPWM(DC3DUONG, 0, 0); 
-    pwm.setPWM(DC3AM, 0, DC3POWER);    
-    }
+    pwm.setPWM(DC3AM, 0, DC3POWER);   
   else{
     pwm.setPWM(DC3DUONG, 0, 0); 
     pwm.setPWM(DC3AM, 0, 0);  
-    //xả hết bóng thừa ra ngoài  
-    pwm.setPWM(servo2, 0, xabong); 
-    delay(200);
-    pwm.setPWM(servo2, 0, hungbong); 
+
     }
   }
 
 void sortbong(){ 
-  //servo2 (180 độ): pwm như sau:
-  //  300: chéo xuống để đưa bóng vào thùng
-  //  500: chéo lên để hứng bóng
-  //  200: xả bóng
-  //servo3 (180 độ): pwm như sau:
-  //  375: mở ra
-  //  150: đóng
 
-//NHỮNG GIÁ TRỊ TRÊN ĐỀU MANG TÍNH CHẤT THAM KHẢO, CÓ THỂ SAI LỆCH, CẦN PHẢI THỬ BOT THỰC TẾ
+//tieptucsortbong = 1: đang sort bóng (đóng cửa)
+//tieptucsortbong = 0: không sort bóng (mở cửa)
 
-//tieptucsortbong = 0: được phép sort bóng tiếp theo
-//tieptucsortbong = 1: không được phép sort bóng tiếp theo
+//battatsortbong = 0: không sort bóng 
+//battatsortbong = 1: đang sort bóng
+
+//R, G, B phải gần tương đương nhau
 
   uint16_t r, g, b, c;
   tcs.getRawData(&r, &g, &b, &c);
+  if (ps2x.ButtonPressed(PSB_PINK) && cocau.battatsortbong = 1){
+    cocau.battatsortbong = 0;
+  }
+  else if (ps2x.ButtonPressed(PSB_PINK) && cocau.battatsortbong = 0){
+    cocau.battatsortbong = 1;
+  }
+
+  if (cocau.battatsortbong = 1 && cocau.tieptucsortbong == 0){
+    pwm.setPWM(servo2, 0, hungbong);
+    delay(50);
+    pwm.setPWM(servo1, 0, mocua);
+    delay(300);
+    pwm.setPWM(servo1, 0, dongcua);
+    cocau.tieptucsortbong == 1;
+  }
+  if (cocau.battatsortbong = 0){
+    pwm.setPWM(servo1, 0, dongcua);
+    pwm.setPWM(servo2, 0, hungbong);
+    cocau.tieptucsortbong == 0;
+  }
 
   // Kiểm tra bóng có phải màu đen không
   if (r < thresholdblack && 
       g < thresholdblack && 
       b < thresholdblack && 
       c < clear_threshold && 
-      cocau.battatcuonbong == 1 && 
-      cocau.tieptucsortbong == 0) 
+      cocau.battatsortbong == 1 && 
+      cocau.tieptucsortbong == 1) 
   {
-    //cho bóng vào hộp dưới
-    pwm.setPWM(servo2, 0, vaothung);
-    pwm.setPWM(servo3, 0, thungduoi);
-    //đóng cửa không cho bóng vào nữa
-    pwm.setPWM(servo1, 0, Negative_Spin);
-    cocau.tieptucsortbong == 1;
-    delay(Servo1and4OpenAndClose);
-    pwm.setPWM(servo1, 0, neutral);
-    delay(50);
-    //cho servo2 chéo lên để hứng bóng
-    pwm.setPWM(servo2, 0, hungbong);
-    delay(200);
-    //mở lại cửa để bóng vào trong
-    pwm.setPWM(servo1, 0, Positive_Spin); 
-    delay(Servo1and4OpenAndClose);
-    pwm.setPWM(servo1, 0, neutral);
+    pwm.setPWM(servo2, 0, thungduoi);
+    delay(600);
     cocau.tieptucsortbong == 0;
   }
 // Kiểm tra bóng có phải màu trắng không
@@ -251,25 +238,16 @@ void sortbong(){
            abs(r - g) < tolerance && 
            abs(r - b) < tolerance && 
            abs(g - b) < tolerance && 
-           cocau.battatcuonbong == 1 && 
-           cocau.tieptucsortbong == 0)  
+           cocau.battatsortbong == 1 && 
+           cocau.tieptucsortbong == 1)  
   {
-    //cho bóng vào hộp trên
-    pwm.setPWM(servo2, 0, vaothung);
-    pwm.setPWM(servo3, 0, thungtren);
-    //đóng cửa không cho bóng vào nữa
-    pwm.setPWM(servo1, 0, Negative_Spin);
-    cocau.tieptucsortbong == 1;
-    delay(Servo1and4OpenAndClose);
-    pwm.setPWM(servo1, 0, neutral);
-    delay(50);
-    //cho servo2 chéo lên để hứng bóng
-    pwm.setPWM(servo2, 0, hungbong);
-    delay(200);
-    //mở lại cửa để bóng vào trong
-    pwm.setPWM(servo1, 0, Positive_Spin);
-    delay(Servo1and4OpenAndClose);
-    pwm.setPWM(servo1, 0, neutral);
+    pwm.setPWM(servo2, 0, thungtren);
+    delay(600);
+    cocau.tieptucsortbong == 0;
+  }
+
+  //Không có bóng
+  else{
     cocau.tieptucsortbong == 0;
   }
 }
@@ -307,40 +285,36 @@ void nanghathung(){
 //điều khiển cửa outtake để đưa bóng vào lỗ
 void outtake(){ 
 
-  //outtakestatus = 0: đóng cửa cả 2 thùng
-  //outtakestatus = 1: mở cửa thùng trên
-  //outtakestatus = 2: mở cửa thùng dưới
+  //servo3: cửa trên
+  //servo4: cửa dưới
 
-  //PSB_GREEN: ấn để mở cửa trên hoặc đóng cửa
-  //PSB_BLUE: ấn để mở cửa dưới hoặc đóng cửa
-
-  if (ps2x.ButtonPressed(PSB_GREEN) && cocau.outtakestatus == 0){
-    pwm.setPWM(servo4, 0, Negative_Spin);
-    delay(Servo1and4OpenAndClose);
-    pwm.setPWM(servo4, 0, neutral);
-    cocau.outtakestatus = 1;
+  if (ps2x.ButtonPressed(PSB_GREEN) && cocau.outtaketren == 0){
+    pwm.setPWM(servo3, 0, Negative_Spin);
+    delay(Servo3and4OpenAndClose);
+    pwm.setPWM(servo3, 0, neutral);
+    cocau.outtaketren = 1;
   }
-  else if (ps2x.ButtonPressed(PSB_GREEN) && cocau.outtakestatus == 2){
-    pwm.setPWM(servo4, 0, Negative_Spin);
-    delay(Servo1and4OpenAndClose);
-    pwm.setPWM(servo4, 0, neutral);
-      cocau.outtakestatus = 0;
+  else if (ps2x.ButtonPressed(PSB_GREEN) && cocau.outtaketren == 1){
+    pwm.setPWM(servo3, 0, Positive_Spin);
+    delay(Servo3and4OpenAndClose);
+    pwm.setPWM(servo3, 0, neutral);
+    cocau.outtaketren = 0;
   }
   }
-  else if (ps2x.ButtonPressed(PSB_BLUE) && cocau.outtakestatus == 0){
+  if (ps2x.ButtonPressed(PSB_BLUE) && cocau.outtakeduoi == 0){
     pwm.setPWM(servo4, 0, Positive_Spin);
-    delay(Servo1and4OpenAndClose);
+    delay(Servo3and4OpenAndClose);
     pwm.setPWM(servo4, 0, neutral);
-    cocau.outtakestatus = 2;
+    cocau.outtakeduoi = 1;
   }
-  else if (ps2x.ButtonPressed(PSB_BLUE) && cocau.outtakestatus == 1){
-    pwm.setPWM(servo4, 0, Positive_Spin);
-    delay(Servo1and4OpenAndClose);
+  else if (ps2x.ButtonPressed(PSB_BLUE) && cocau.outtakeduoi == 1){
+    pwm.setPWM(servo4, 0, Negative_Spin);
+    delay(Servo3and4OpenAndClose);
     pwm.setPWM(servo4, 0, neutral);
-      cocau.outtakestatus = 0;
+    cocau.outtakeduoi = 0;
     }
   }
-}
+
 
 //KIỂM TRA LỖI
 void ErrorChecking() {
