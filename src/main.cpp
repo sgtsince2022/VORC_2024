@@ -12,16 +12,18 @@ status cocau {0, 0, 0, 0, 0, 0, 0};
 movement Move {0, 85, 170, 255, 0, 85, 170, 255, 85, 170, 85, 170};
 int16_t moveY, moveX;
 
-//Servo 180: Các giá trị PWM (chỉ nên tham khảo do servo1 và servo2 lấy gốc khác nhau)
-//  +) 150: góc 0 độ (lấy 150 làm gốc)
-//  +) 375: góc 90 độ
-//  +) 600: góc 180 độ
+//Servo 180: Các giá trị PWM 
+//  +) 150: 0 độ (lấy 150 làm gốc)
+//  +) 375: quay 90 độ
+//  +) 600: quay 180 độ
 //Servo 360: Các giá trị PWM
 //  +) 150: quay ngược chiều kim đồng hồ
 //  +) 375: dừng quay
 //  +) 600: quay cùng chiều kim đồng hồ
 
 //NHỮNG GIÁ TRỊ TRÊN ĐỀU MANG TÍNH CHẤT THAM KHẢO, CÓ THỂ SAI LỆCH, CẦN PHẢI THỬ BOT THỰC TẾ
+
+//Vào file header để xem các giá trị được sử dụng
 
 void setup() {
   Serial.begin(9600);
