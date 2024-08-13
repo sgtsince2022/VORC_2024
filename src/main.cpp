@@ -2,7 +2,7 @@
 
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 PS2X ps2x; 
-Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_50MS, TCS34725_GAIN_4X);
+Adafruit_TCS34725 colorSensor = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_50MS, TCS34725_GAIN_4X);
 
 //CÁC CƠ CẤU Ở TRẠNG THÁI BÌNH THƯỜNG
 status cocau {0, 0, 0, 0, 0, 0, 0};
@@ -12,10 +12,10 @@ status cocau {0, 0, 0, 0, 0, 0, 0};
 movement Move {0, 85, 170, 255, 0, 85, 170, 255, 85, 170, 85, 170};
 int16_t moveY, moveX;
 
-//Servo 180: Các giá trị PWM
-//  +) 150: góc 0 độ
-//  +) 375: góc 45 độ
-//  +) 600: góc 90 độ
+//Servo 180: Các giá trị PWM (chỉ nên tham khảo do servo1 và servo2 lấy gốc khác nhau)
+//  +) 150: góc 0 độ (lấy 150 làm gốc)
+//  +) 375: góc 90 độ
+//  +) 600: góc 180 độ
 //Servo 360: Các giá trị PWM
 //  +) 150: quay ngược chiều kim đồng hồ
 //  +) 375: dừng quay
@@ -49,9 +49,9 @@ void init() {
   Wire.setClock(400000); 
 
   //SET CÁC SERVO VỀ VỊ TRÍ SẴN SÀNG
-  pwm.setPWM(servo1, 0, dongcua); //360
+  pwm.setPWM(servo1, 0, dongcua); //180
   pwm.setPWM(servo2, 0, hungbong); //180
-  pwm.setPWM(servo3, 0, neutral); //180
+  pwm.setPWM(servo3, 0, neutral); //360
   pwm.setPWM(servo4, 0, neutral); //360
 }
 
@@ -185,6 +185,7 @@ void cuonbong(){
 
     }
   }
+}
 
 void sortbong(){ 
 
@@ -196,8 +197,10 @@ void sortbong(){
 
 //R, G, B phải gần tương đương nhau
 
-  uint16_t r, g, b, c;
-  tcs.getRawData(&r, &g, &b, &c);
+  uint16_t r, g, b, c, lux;
+  colorSensor.getRawData(&r, &g, &b, &c);
+  lux = colorSensor.calculateLux(r, g, b);
+
   if (ps2x.ButtonPressed(PSB_PINK) && cocau.battatsortbong = 1){
     cocau.battatsortbong = 0;
   }
@@ -223,7 +226,9 @@ void sortbong(){
   if (r < thresholdblack && 
       g < thresholdblack && 
       b < thresholdblack && 
-      c < clear_threshold && 
+      //dùng clear để đảm bảo là màu đen
+      c < clear_threshold &&
+      lux < luxblack && 
       cocau.battatsortbong == 1 && 
       cocau.tieptucsortbong == 1) 
   {
@@ -231,10 +236,13 @@ void sortbong(){
     delay(600);
     cocau.tieptucsortbong == 0;
   }
-// Kiểm tra bóng có phải màu trắng không
+
+  // Kiểm tra bóng có phải màu trắng không
   else if (r > thresholdwhite &&
            g > thresholdwhite && 
-           b > thresholdwhite && 
+           b > thresholdwhite &&
+           lux > luxwhite &&
+           //r g b phải gần tương đương nhau
            abs(r - g) < tolerance && 
            abs(r - b) < tolerance && 
            abs(g - b) < tolerance && 
@@ -251,8 +259,6 @@ void sortbong(){
     cocau.tieptucsortbong == 0;
   }
 }
-  //code trên để tránh tình trạng 2 bóng vào cùng 1 lúc, nhưng sẽ gây sai số nếu cửa chạm vào bóng
-  //do servo 360 không điều khiển được góc vậy nên không thể xác định được góc
 
 void nanghathung(){ 
 
@@ -324,6 +330,7 @@ void outtake(){
     }
   }
 
+
 //KIỂM TRA LỖI
 void ErrorChecking() {
     Serial.println("connecting to ps2..");
@@ -352,7 +359,7 @@ void ErrorChecking() {
     break;
     }
   // Kiểm tra có nhận được dữ liệu từ cảm biến màu không
-  if (tcs.begin()) {
+  if (colorSensor.begin()) {
     Serial.println(" Cam bien mau hoat dong tot");
   } else {
     Serial.println(" LOI: Chua nhan duoc tin hieu cam bien mau");
