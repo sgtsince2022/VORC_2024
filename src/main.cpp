@@ -201,25 +201,25 @@ void sortbong(){
   colorSensor.getRawData(&r, &g, &b, &c);
   lux = colorSensor.calculateLux(r, g, b);
 
-  if (ps2x.ButtonPressed(PSB_PINK) && cocau.battatsortbong = 1){
+  if (ps2x.ButtonPressed(PSB_PINK) && cocau.battatsortbong == 1){
     cocau.battatsortbong = 0;
   }
-  else if (ps2x.ButtonPressed(PSB_PINK) && cocau.battatsortbong = 0){
+  else if (ps2x.ButtonPressed(PSB_PINK) && cocau.battatsortbong == 0){
     cocau.battatsortbong = 1;
   }
 
-  if (cocau.battatsortbong = 1 && cocau.tieptucsortbong == 0){
+  if (cocau.battatsortbong == 1 && cocau.tieptucsortbong == 0){
     pwm.setPWM(servo2, 0, hungbong);
     delay(50);
     pwm.setPWM(servo1, 0, mocua);
     delay(300);
     pwm.setPWM(servo1, 0, dongcua);
-    cocau.tieptucsortbong == 1;
+    cocau.tieptucsortbong = 1;
   }
-  if (cocau.battatsortbong = 0){
+  if (cocau.battatsortbong == 0){
     pwm.setPWM(servo1, 0, dongcua);
     pwm.setPWM(servo2, 0, hungbong);
-    cocau.tieptucsortbong == 0;
+    cocau.tieptucsortbong = 0;
   }
 
   // Kiểm tra bóng có phải màu đen không
@@ -234,7 +234,7 @@ void sortbong(){
   {
     pwm.setPWM(servo2, 0, thungduoi);
     delay(600);
-    cocau.tieptucsortbong == 0;
+    cocau.tieptucsortbong = 0;
   }
 
   // Kiểm tra bóng có phải màu trắng không
@@ -251,12 +251,12 @@ void sortbong(){
   {
     pwm.setPWM(servo2, 0, thungtren);
     delay(600);
-    cocau.tieptucsortbong == 0;
+    cocau.tieptucsortbong = 0;
   }
 
   //Không có bóng
   else{
-    cocau.tieptucsortbong == 0;
+    cocau.tieptucsortbong = 0;
   }
 }
 
