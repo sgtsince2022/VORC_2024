@@ -9,7 +9,7 @@
 
 //TRẠNG THÁI CỦA TỪNG CƠ CẤU
 struct status {
-    int battatcuonbong, tieptucsortbong, outtakestatus, tienhoaclui, traihoacphai;
+    int battatcuonbong, tieptucsortbong, battatsortbong, outtaketren, outtakeduoi, tienhoaclui, traihoacphai;
 };
 
 //GIÁ TRỊ DI CHUYỂN
@@ -20,7 +20,7 @@ struct status {
 
 //THỜI GIAN CHỜ
 #define TimetoBrake 50 //thời gian 0,05s tránh tối đa tình trạng động cơ bị dừng khi có tín hiệu di chuyển
-#define Servo1and4OpenAndClose 200
+#define Servo3and4OpenAndClose 200
 
 //GIÁ TRỊ TỐI ĐA DI CHUYỂN
 struct movement {
@@ -55,7 +55,7 @@ struct movement {
 #define DC4DUONG 14
 #define DC4AM 15
 
-//servo1 và servo4: servo 360 độ, còn lại là 180 độ
+//servo3 và servo4: servo 360 độ, còn lại là 180 độ
 #define servo1 7
 #define servo2 6
 #define servo3 5
@@ -65,7 +65,7 @@ struct movement {
 #define thresholdblack 30
 #define clear_threshold 50
 #define thresholdwhite 200
-#define tolerance 50 //cho phép sai số của màu trắng
+#define tolerance 50 //cho phép chênh lệch giá trị R G B
 
 //DC3 POWER
 #define DC3POWER 4095
@@ -73,19 +73,19 @@ struct movement {
 //DC4 POWER
 #define DC4POWER 4095
 
-//Servo1 VÀ Servo4 (360)
+//Servo3 VÀ Servo4 (360)
 #define neutral 375
 #define Positive_Spin 600
 #define Negative_Spin 150
 
-//Servo2 (180)
-#define hungbong 420
-#define vaothung 300
-#define xabong 200
+//Servo1 (180)
+#define mocua 300
+#define dongcua 150 //vị trí bắt đầu
 
-//Servo3 (180)
-#define thungtren 150
-#define thungduoi 375
+//Servo2 (180)
+#define hungbong 380 //vị trí bắt đầu
+#define thungtren 300
+#define thungduoi 150
 
 //CÁC HÀM
 void init();
