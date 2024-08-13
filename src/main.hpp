@@ -64,12 +64,10 @@ struct movement {
 #define servo4 4
 
 //GIÁ TRỊ MÀU SẮC
-#define thresholdblack 30
-#define clear_threshold 50
-#define thresholdwhite 200
-#define tolerance 50 //cho phép chênh lệch giá trị R G B
-#define luxwhite 300
-#define luxblack 50
+#define thresholdblack 500
+#define thresholdwhite 20000
+#define tolerance 500 //cho phép chênh lệch giá trị R G B
+//đều là tham khảo, có thể sai
 
 //DC3 POWER
 #define DC3POWER 4095
