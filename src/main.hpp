@@ -22,6 +22,7 @@ struct status {
 #define TimetoBrake 50 //thời gian 0,05s tránh tối đa tình trạng động cơ bị dừng khi có tín hiệu di chuyển
 #define Servo3and4OpenAndClose #define Servo3and4OpenAndClose 270
 // Tốc độ servo 360: 0,16s / 60* -> xấp xỉ 0,27s cho 100*
+#define OuttakeOpenTime 3000
 
 //GIÁ TRỊ TỐI ĐA DI CHUYỂN
 struct movement {
