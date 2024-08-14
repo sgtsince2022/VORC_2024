@@ -92,70 +92,12 @@ void dichuyen(){
   }
 
   //tiến
-  if (moveY > 0){ 
+  if (moveY >= 0){ 
       pwm.setPWM(DC1DUONG, 0, moveY + moveX); 
       pwm.setPWM(DC1AM, 0, -(moveY + moveX));    
       pwm.setPWM(DC2DUONG, 0, moveY - moveX); 
       pwm.setPWM(DC2AM, 0, -(moveY - moveX));    
   }
-
-  //phanh, có thể gây giật bot (không phải giật điện)
-  else if (moveY == 0){ 
-    if (cocau.tienhoaclui == 1){
-      cocau.tienhoaclui = 0;
-      pwm.setPWM(DC1AM, 0, brake);
-      pwm.setPWM(DC2AM, 0, brake);
-      //Đảm bảo chắc chắn động cơ không quay nữa
-      pwm.setPWM(DC1DUONG, 0, 0);
-      pwm.setPWM(DC2DUONG, 0, 0);
-      delay(TimetoBrake); 
-      pwm.setPWM(DC1AM, 0, 0);
-      pwm.setPWM(DC2AM, 0, 0);
-      pwm.setPWM(DC1DUONG, 0, 0);
-      pwm.setPWM(DC2DUONG, 0, 0);
-    }
-    else if (cocau.tienhoaclui == 2){
-      cocau.tienhoaclui = 0;
-      pwm.setPWM(DC1DUONG, 0, brake);
-      pwm.setPWM(DC2DUONG, 0, brake);
-      //Đảm bảo chắc chắn động cơ không quay nữa
-      pwm.setPWM(DC1AM, 0, 0);
-      pwm.setPWM(DC2AM, 0, 0);
-      delay(TimetoBrake);
-      pwm.setPWM(DC1DUONG, 0, 0);
-      pwm.setPWM(DC2DUONG, 0, 0);
-      pwm.setPWM(DC1AM, 0, 0);
-      pwm.setPWM(DC2AM, 0, 0);
-    }
-    //Phanh rẽ trái hoặc phải chỉ khi không tiến hoặc lùi, ưu tiên phanh theo tiến hoặc lùi để tránh sai số
-    if (cocau.traihoacphai == 1 && cocau.tienhoaclui == 0){
-      cocau.traihoacphai = 0;
-      pwm.setPWM(DC1AM, 0, brake);
-      pwm.setPWM(DC2DUONG, 0, brake);
-      //Đảm bảo chắc chắn động cơ không quay nữa
-      pwm.setPWM(DC1DUONG, 0, 0);
-      pwm.setPWM(DC2AM, 0, 0);
-      delay(TimetoBrake);
-      pwm.setPWM(DC1AM, 0, 0);
-      pwm.setPWM(DC2DUONG, 0, 0);
-      pwm.setPWM(DC1DUONG, 0, 0);
-      pwm.setPWM(DC2AM, 0, 0);
-    }
-    if (cocau.traihoacphai == 2 && cocau.tienhoaclui == 0){
-      cocau.traihoacphai = 0;
-      pwm.setPWM(DC1DUONG, 0, brake);
-      pwm.setPWM(DC2AM, 0, brake);
-      //Đảm bảo chắc chắn động cơ không quay nữa
-      pwm.setPWM(DC1AM, 0, 0);
-      pwm.setPWM(DC2DUONG, 0, 0);
-      delay(TimetoBrake);
-      pwm.setPWM(DC1DUONG, 0, 0);
-      pwm.setPWM(DC2AM, 0, 0);
-      pwm.setPWM(DC1AM, 0, 0);
-      pwm.setPWM(DC2DUONG, 0, 0);
-    }
-  }
-
   //lùi
   else{ 
     pwm.setPWM(DC1DUONG, 0, moveY - moveX); 
