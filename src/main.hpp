@@ -15,7 +15,7 @@ struct status {
 //GIÁ TRỊ DI CHUYỂN
 #define limitPos 2500 //giới hạn xấp xỉ 62% năng lượng
 #define limitNeg -2500
-#define lowestSpeed 0
+#define lowestSpeed 1000
 #define brake 1200
 
 //THỜI GIAN CHỜ
