@@ -61,31 +61,23 @@ void dichuyen(){
   byte LY = ps2x.Analog(PSS_LY), 
        RX = ps2x.Analog(PSS_RX); 
 
-  //tienhoaclui = 0: đứng yên
-  //tienhoaclui = 1: tiến
-  //tienhoaclui = 2: lùi
-  //traihoacphai = 0: không rẽ
-  //traihoacphai = 1: rẽ phải
-  //traihoacphai = 2: rẽ trái
-
   if (LY >= Move.forward_low && LY <= Move.forward_high){
     moveY = (int16_t) map(LY, Move.forward_low, Move.forward_high, limitPos, lowestSpeed);
-    cocau.tienhoaclui = 1;
   }
   else if (LY >= Move.backward_low && LY <= Move.backward_high){
     moveY = (int16_t) map(LY, Move.backward_low, Move.backward_high, lowestSpeed, limitNeg);
-    cocau.tienhoaclui = 2;
+    
   }
   else if (LY >= Move.idle_y_low && LY <= Move.idle_y_high){
     moveY = 0;
   }
   if (RX >= Move.right_low && RX <= Move.right_high){
     moveX = (int16_t) map(RX, Move.right_low, Move.right_high, lowestSpeed, limitPos);
-    cocau.traihoacphai = 1;
+    
   }
   else if (RX >= Move.left_low && RX <= Move.left_high){
     moveX = (int16_t) map(RX, Move.left_low, Move.left_high, limitNeg, lowestSpeed);
-    cocau.traihoacphai = 1;
+  
   }
   else if (RX >= Move.idle_x_low && RX <= Move.idle_x_high){
     moveX = 0;
@@ -151,19 +143,6 @@ void sortbong(){
     cocau.battatsortbong = 1;
   }
 
-  if (cocau.battatsortbong == 1 && cocau.tieptucsortbong == 0){
-    pwm.setPWM(servo2, 0, hungbong);
-    delay(50);
-    pwm.setPWM(servo1, 0, mocua);
-    delay(300);
-    pwm.setPWM(servo1, 0, dongcua);
-    cocau.tieptucsortbong = 1;
-  }
-  if (cocau.battatsortbong == 0){
-    pwm.setPWM(servo1, 0, dongcua);
-    pwm.setPWM(servo2, 0, hungbong);
-    cocau.tieptucsortbong = 0;
-  }
 
   // Kiểm tra bóng có phải màu đen không
   if (r < thresholdblack && 
@@ -197,6 +176,24 @@ void sortbong(){
   else{
     cocau.tieptucsortbong = 0;
   }
+
+//bật sort bóng, cho bóng vào
+  if (cocau.battatsortbong == 1 && cocau.tieptucsortbong == 0){
+    pwm.setPWM(servo2, 0, hungbong);
+    delay(50);
+    pwm.setPWM(servo1, 0, mocua);
+    delay(300);
+    pwm.setPWM(servo1, 0, dongcua);
+    cocau.tieptucsortbong = 1;
+  }
+//tắt sort bóng
+  else if (cocau.battatsortbong == 0){
+    pwm.setPWM(servo1, 0, dongcua);
+    delay(150);
+    pwm.setPWM(servo2, 0, hungbong);
+    cocau.tieptucsortbong = 0;
+  }
+
 }
 
 void nanghathung(){ 
