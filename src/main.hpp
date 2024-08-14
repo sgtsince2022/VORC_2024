@@ -9,7 +9,7 @@
 
 //TRẠNG THÁI CỦA TỪNG CƠ CẤU
 struct status {
-    int battatcuonbong, tieptucsortbong, battatsortbong, outtaketren, outtakeduoi, tienhoaclui, traihoacphai;
+    int battatcuonbong, tieptucsortbong, battatsortbong, outtaketren, outtakeduoi;
 };
 
 //GIÁ TRỊ DI CHUYỂN
