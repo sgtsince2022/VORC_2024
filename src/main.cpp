@@ -5,7 +5,7 @@ PS2X ps2x;
 Adafruit_TCS34725 colorSensor = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_50MS, TCS34725_GAIN_4X);
 
 //CÁC CƠ CẤU Ở TRẠNG THÁI BÌNH THƯỜNG
-status cocau {0, 0, 0, 0, 0, 0, 0};
+status cocau {0, 0, 0, 0, 0};
 
 //GIÁ TRỊ DI CHUYỂN
             /*fl, fh, b_l, b_h,ll, lh, r_l, r_h, xl, ixh, yl, iyh*/
