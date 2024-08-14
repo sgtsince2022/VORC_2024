@@ -16,10 +16,8 @@ struct status {
 #define limitPos 2500 //giới hạn xấp xỉ 62% năng lượng
 #define limitNeg -2500
 #define lowestSpeed 150
-#define brake 1200
 
 //THỜI GIAN CHỜ
-#define TimetoBrake 50 //thời gian 0,05s tránh tối đa tình trạng động cơ bị dừng khi có tín hiệu di chuyển
 #define Servo3and4OpenAndClose 267
 // Tốc độ servo 360: 0,16s / 60* -> xấp xỉ 0,267s cho 100*
 #define OuttakeOpenTime 3000
