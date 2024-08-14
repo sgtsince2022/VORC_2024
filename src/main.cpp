@@ -58,8 +58,8 @@ void init() {
 }
 
 void dichuyen(){ 
-  int LY = ps2x.Analog(PSS_LY), 
-      RX = ps2x.Analog(PSS_RX); 
+  byte LY = ps2x.Analog(PSS_LY), 
+       RX = ps2x.Analog(PSS_RX); 
 
   //tienhoaclui = 0: đứng yên
   //tienhoaclui = 1: tiến
