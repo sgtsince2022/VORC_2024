@@ -55,18 +55,15 @@ void dichuyen(){
   }
   else if (LY >= Move.backward_low && LY <= Move.backward_high){
     moveY = (int16_t) map(LY, Move.backward_low, Move.backward_high, lowestSpeed, limitNeg);
-    
   }
   else if (LY >= Move.idle_y_low && LY <= Move.idle_y_high){
     moveY = 0;
   }
   if (RX >= Move.right_low && RX <= Move.right_high){
     moveX = (int16_t) map(RX, Move.right_low, Move.right_high, lowestSpeed, limitPos);
-    
   }
   else if (RX >= Move.left_low && RX <= Move.left_high){
     moveX = (int16_t) map(RX, Move.left_low, Move.left_high, limitNeg, lowestSpeed);
-  
   }
   else if (RX >= Move.idle_x_low && RX <= Move.idle_x_high){
     moveX = 0;
