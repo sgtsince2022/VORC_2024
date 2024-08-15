@@ -125,9 +125,20 @@ void sortbong(){
   colorSensor.getRawData(&red, &green, &blue, &clear);
   colorSensor.setInterrupt(true); //tắt led
 
+  //cho về giá trị 0 - 255 (công thức chia tổng nhân 256)
   r = (red/clear)*256;
   g = (green/clear)*256;
   b = (blue/clear)*256;
+
+  //map lại giá trị R, G, B được calibrate 
+  int r2 = map(r, minR, maxR, 0, 255);
+  int g2 = map(g, minG, maxG, 0, 255);
+  int b2 = map(b, minB, maxB, 0, 255);
+
+  //nếu giá trị map âm hoặc vượt quá 255 thì cho về 0 hoặc 255 (tránh sự sai lệch trong calibrate)
+  r = constrain(r2, 0, 255);
+  g = constrain(g2, 0, 255);
+  b = constrain(b2, 0, 255);
 
   if (ps2x.ButtonPressed(PSB_PINK) && cocau.battatsortbong == 1){
     cocau.battatsortbong = 0;
