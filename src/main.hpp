@@ -9,15 +9,17 @@
 
 //TRẠNG THÁI CỦA TỪNG CƠ CẤU
 struct status {
-    int battatcuonbong, tieptucsortbong, battatsortbong, outtaketren, outtakeduoi;
+    int battatcuonbong, tieptucsortbong, battatsortbong, outtaketren, outtakeduoi, tienhoaclui, traihoacphai;
 };
 
 //GIÁ TRỊ DI CHUYỂN
 #define limitPos 2500 //giới hạn xấp xỉ 62% năng lượng
 #define limitNeg -2500
-#define lowestSpeed 150
+#define lowestSpeed 0
+#define brake 1200
 
 //THỜI GIAN CHỜ
+#define TimetoBrake 50 //thời gian 0,05s tránh tối đa tình trạng động cơ bị dừng khi có tín hiệu di chuyển
 #define Servo3and4OpenAndClose 267
 // Tốc độ servo 360: 0,16s / 60* -> xấp xỉ 0,267s cho 100*
 #define OuttakeOpenTime 3000
@@ -62,9 +64,9 @@ struct movement {
 #define servo4 4
 
 //GIÁ TRỊ MÀU SẮC
-#define thresholdblack 500
-#define thresholdwhite 20000
-#define tolerance 500 //cho phép chênh lệch giá trị R G B
+#define thresholdblack 50
+#define thresholdwhite 240
+#define tolerance 10 //cho phép chênh lệch giá trị R G B
 //đều là tham khảo, có thể sai
 
 //DC3 POWER
