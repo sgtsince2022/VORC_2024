@@ -129,8 +129,16 @@ void sortbong(){
 
 //R, G, B phải gần tương đương nhau
 
-  uint16_t r, g, b, c;
-  colorSensor.getRawData(&r, &g, &b, &c);
+  uint16_t red, green, blue, clear;
+  float r,g,b;
+  colorSensor.setInterrupt(false); //bật led
+  delay(60); //do tốn 50ms để đọc
+  colorSensor.getRawData(&red, &green, &blue, &clear);
+  colorSensor.setInterrupt(true); //tắt led
+
+  r = (red/clear)*256;
+  g = (green/clear)*256;
+  b = (blue/clear)*256;
 
   if (ps2x.ButtonPressed(PSB_PINK) && cocau.battatsortbong == 1){
     cocau.battatsortbong = 0;
@@ -144,6 +152,10 @@ void sortbong(){
   if (r < thresholdblack && 
       g < thresholdblack && 
       b < thresholdblack && 
+      //r g b phải gần tương đương nhau
+      abs(r - g) < tolerance && 
+      abs(r - b) < tolerance && 
+      abs(g - b) < tolerance && 
       cocau.battatsortbong == 1 && 
       cocau.tieptucsortbong == 1) 
   {
