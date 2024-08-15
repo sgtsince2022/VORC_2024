@@ -69,6 +69,15 @@ struct movement {
 #define tolerance 10 //cho phép chênh lệch giá trị R G B
 //đều là tham khảo, có thể sai
 
+//GIÁ TRỊ R G B TỐI THIỂU VÀ TỐI ĐA (CHỈNH LẠI SAU KHI CALIBRATE)
+#define maxR 255
+#define maxG 255
+#define maxB 255
+
+#define minR 0
+#define minG 0
+#define minB 0
+
 //DC3 POWER
 #define DC3POWER 4095
 
